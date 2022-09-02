@@ -1,28 +1,33 @@
+import axios from 'axios';
 import { useState } from 'react';
 
-function Header({ title }) {
-  return <h1>{title ? title : 'Default title'}</h1>;
-}
+import BookList from '../components/allProducts';
+import Navbar from '../components/navBar';
+// import styles from '../styles/Home.module.css';
 
-export default function HomePage() {
-  const names = ['Book 1', 'Book2', 'Book3'];
-
-  const [counts, setCount] = useState(0);
-
-  function handleClick() {
-    setCount(counts + 1);
-  }
-
+export default function Home({ bookList, admin }) {
+  const [close, setClose] = useState(true);
   return (
     <div>
-      <Header title="Books" />
-      <ul>
-        {names.map(name => (
-          <li key={name}>{name}</li>
-        ))}
-      </ul>
-
-      <button onClick={handleClick}>Count ({counts})</button>
+      <Navbar />
+      <BookList bookList={bookList} />
     </div>
   );
 }
+
+export const getServerSideProps = async ctx => {
+  // const myCookie = ctx.req?.cookies || '';
+  // let admin = false;
+
+  // if (myCookie.token === process.env.TOKEN) {
+  //   admin = true;
+  // }
+
+  const res = await axios.get('http://localhost:8000/products');
+  return {
+    props: {
+      bookList: res.data,
+      // admin,
+    },
+  };
+};

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import allProducts from './allProducts';
 
 function Home() {
   return (
@@ -9,12 +10,12 @@ function Home() {
         </Link>
       </li>
       <li>
-        <Link href="/blog/hello-world">
+        <Link href="/api/allbooks">
           <a>All Books</a>
         </Link>
       </li>
       <li>
-        <Link href="/blog/hello-world">
+        <Link href="/api/login">
           <a>Login</a>
         </Link>
       </li>

@@ -1,6 +1,7 @@
 const express = require('express');
 const next = require('next');
 const { PrismaClient } = require('@prisma/client');
+const morgan = require('morgan');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -9,6 +10,10 @@ const prisma = new PrismaClient();
 
 const server = express();
 server.use(express.json());
+
+server.use('/api', require('./api'));
+// logging middleware
+server.use(morgan('dev'));
 
 //middleware
 // express.use(bodyParser.json());
@@ -33,9 +38,9 @@ server.get('/products', async (req, res) => {
   res.json(products);
 });
 
-server.listen(3000, err => {
+server.listen(8000, err => {
   if (err) throw err;
-  console.log('Ready on http://localhost:3000');
+  console.log('Ready on http://localhost:8000');
 });
 
 module.exports = server;
