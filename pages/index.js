@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import BookList from '../components/allProducts';
 import Navbar from '../components/navBar';
@@ -11,6 +12,12 @@ export default function Home({ bookList, admin }) {
     <div>
       <Navbar />
       <CarouselHome />
+      <Image
+        alt="my image"
+        src={'https://i.imgur.com/2D9ef63.png'}
+        width={140}
+        height={140}
+      />
       <BookList bookList={bookList} />
     </div>
   );
