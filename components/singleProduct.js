@@ -1,11 +1,19 @@
 // import Link from 'next/link';
+import * as React from 'react';
+import toast from '../components/toastNotification';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cart.slice';
 import styles from '../styles/singleProduct.module.css';
+import { useState } from 'react';
+// import { useToastContext } from './toastNotification';
 
 const SingleProduct = ({ product }) => {
   const dispatch = useDispatch();
+  const notify = React.useCallback((type, message) => {
+    toast({ type, message });
+  }, []);
+
   return (
     <div className={styles}>
       <Image src={product.image} height={300} width={220} />
@@ -15,6 +23,7 @@ const SingleProduct = ({ product }) => {
       <button
         onClick={() => {
           dispatch(addToCart(product));
+          notify('success', 'Added To Cart!');
         }}
         className={styles.button}
       >
