@@ -12,6 +12,7 @@ const CarouselHome = () => {
         infiniteLoop={true}
         transitionTime={500}
         showThumbs={false}
+        showStatus={false}
       >
         <div style={{ maxHeight: '100%', maxWidth: '100%' }}>
           <img
@@ -21,22 +22,16 @@ const CarouselHome = () => {
           />
         </div>
         <div>
-          <img
-            src="https://i.imgur.com/lxgnoCI.png"
-            alt="image2"
-            // style={{ height: 'auto' }}
-          />
+          <img src="https://i.imgur.com/LmskPGf.png" alt="image2" />
         </div>
         <div>
-          <img
-            src="https://i.imgur.com/kT6Xs6E.png"
-            alt="image3"
-            // style={{ height: 350 }}
-          />
+          <img src="https://i.imgur.com/kT6Xs6E.png" alt="image3" />
         </div>
-
         <div>
           <img src="https://i.imgur.com/qTTbsNq.png" alt="image4" />
+        </div>
+        <div>
+          <img src="https://i.imgur.com/lxgnoCI.png" alt="image5" />
         </div>
       </Carousel>
     </div>
