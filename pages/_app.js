@@ -1,10 +1,9 @@
 import * as React from 'react';
 import '../styles/global.css';
 import { Provider } from 'react-redux';
-import store from '../redux/store';
+import { store } from '../redux/store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import '../styles/allProducts.module.css';
 import Navbar from '../components/navBar';
 
 function MyApp({ Component, pageProps }) {

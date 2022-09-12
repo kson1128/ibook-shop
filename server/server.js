@@ -33,10 +33,20 @@ server.use(morgan('dev'));
 // });
 
 //GET    api/products
-server.get('/products', async (req, res) => {
-  const products = await prisma.product.findMany();
-  res.json(products);
-});
+// server.get('/api/allProducts', async (req, res) => {
+//   const products = await prisma.product.findMany();
+//   res.json(products);
+// });
+
+//GET    /products/:id
+// server.get('api/allProducts/:id', async (req, res) => {
+//   const { id } = req.params;
+//   console.log('THE ID IS--', id);
+//   const book = await prisma.product.findUnique({
+//     where: { id: Number(id) },
+//   });
+//   res.json(book);
+// });
 
 server.listen(8000, err => {
   if (err) throw err;

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import SingleProduct from '../components/singleProduct';
 import styles from '../styles/allProducts.module.css';
+import BookList from '../components/allBooks';
 
-export const getServerSideProps = async ctx => {
-  const res = await axios.get('http://localhost:8000/products');
+export const getServerSideProps = async context => {
+  const res = await axios.get('http://localhost:8000/api/allProducts');
   return {
     props: {
       bookList: res.data,
@@ -12,17 +13,8 @@ export const getServerSideProps = async ctx => {
   };
 };
 
-const BookList = ({ bookList }) => {
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>All Results</h1>
-      <div className={styles.cards}>
-        {bookList.map((book, index) => (
-          <SingleProduct key={index} product={book} />
-        ))}
-      </div>
-    </div>
-  );
+const List = ({ bookList }) => {
+  return <BookList bookList={bookList} />;
 };
 
-export default BookList;
+export default List;
