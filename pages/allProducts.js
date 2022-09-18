@@ -4,7 +4,9 @@ import styles from '../styles/allProducts.module.css';
 import BookList from '../components/allBooks';
 
 export const getServerSideProps = async context => {
-  const res = await axios.get('http://localhost:8000/api/allProducts');
+  const res = await axios.get(
+    'https://jqdrwrtkddffeovlctno.supabase.co/api/allProducts'
+  );
   return {
     props: {
       bookList: res.data,

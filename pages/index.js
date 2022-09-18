@@ -14,7 +14,9 @@ export default function Home({ bookList, admin }) {
 }
 
 export const getServerSideProps = async context => {
-  const res = await axios.get('http://localhost:8000/api/allProducts');
+  const res = await axios.get(
+    'https://jqdrwrtkddffeovlctno.supabase.co/api/allProducts'
+  );
   return {
     props: {
       bookList: res.data,

@@ -213,7 +213,7 @@ const SingleProductPage = ({ singleBook }) => {
 
 export const getServerSideProps = async context => {
   const res = await axios.get(
-    `http://localhost:8000/api/allProducts/${context.params.id}`
+    `https://jqdrwrtkddffeovlctno.supabase.co/api/allProducts/${context.params.id}`
   );
   return {
     props: {
