@@ -1,9 +1,18 @@
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '../styles/CartPage.module.css';
+import {
+  incrementQuantity,
+  decrementQuantity,
+  removeFromCart,
+} from '../redux/cart.slice';
 
 const CartPage = () => {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector(state => {
+    console.log('WAHTS STATE-', state);
+    return state.cart;
+  });
+
   const dispatch = useDispatch();
 
   const getTotalPrice = () => {
@@ -32,10 +41,20 @@ const CartPage = () => {
               <div className={styles.image}>
                 <Image src={item.image} height="90" width="65" />
               </div>
-              <p>{item.product}</p>
+              <p>{item.title}</p>
               <p>$ {item.price}</p>
               <p>{item.quantity}</p>
-              <div className={styles.buttons}></div>
+              <div className={styles.buttons}>
+                <button onClick={() => dispatch(incrementQuantity(item.id))}>
+                  +
+                </button>
+                <button onClick={() => dispatch(decrementQuantity(item.id))}>
+                  -
+                </button>
+                <button onClick={() => dispatch(removeFromCart(item.id))}>
+                  x
+                </button>
+              </div>
               <p>$ {item.quantity * item.price}</p>
             </div>
           ))}

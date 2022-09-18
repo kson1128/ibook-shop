@@ -5,7 +5,7 @@ import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
 const reducer = {
   cart: cartReducer,
-  // singleBook: bookReducer,
+  singleBook: bookReducer,
 };
 
 export const store = configureStore({
@@ -15,6 +15,7 @@ export const store = configureStore({
 //   configureStore({
 //     reducer,
 //   });
+console.log('store:', store.getState());
 
 export const wrapper = createWrapper(store);
 export default wrapper;

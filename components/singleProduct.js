@@ -15,8 +15,11 @@ const SingleProduct = ({ product }) => {
   return (
     <div className={styles}>
       <Link href={`/allProducts/${product.id}`}>
-        <Image src={product.image} height={300} width={220} />
+        <a>
+          <Image src={product.image} height={300} width={220} />
+        </a>
       </Link>
+
       <h4 className={styles.title}>{product.product}</h4>
       <p>$ {product.price}</p>
 
