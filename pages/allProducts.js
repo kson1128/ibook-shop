@@ -5,7 +5,7 @@ import BookList from '../components/allBooks';
 
 export const getServerSideProps = async context => {
   const res = await axios.get(
-    'https://jqdrwrtkddffeovlctno.supabase.co/api/allProducts'
+    'http://supabase_kong_supabase:8000/api/allProducts'
   );
   return {
     props: {
