@@ -14,9 +14,3 @@ const users = [
 ];
 
 module.exports = users;
-
-// User.hasMany(Order);
-// Order.belongsTo(User);
-
-// Order.belongsToMany(Plant, { through: OrderProducts });
-// Plant.belongsToMany(Order, { through: OrderProducts });

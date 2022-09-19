@@ -2,6 +2,7 @@ const express = require('express');
 const next = require('next');
 const { PrismaClient } = require('@prisma/client');
 const morgan = require('morgan');
+const PORT = process.env.PORT || 8000;
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -48,9 +49,9 @@ server.use(morgan('dev'));
 //   res.json(book);
 // });
 
-server.listen(8000, err => {
+server.listen(PORT, err => {
   if (err) throw err;
-  console.log('Ready on http://localhost:8000');
+  console.log(`Ready on ${PORT}`);
 });
 
 module.exports = server;
