@@ -2,17 +2,16 @@ import * as React from 'react';
 import toast from '../../components/toastNotification';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToQuantityCart } from '../../redux/cart.slice';
+// import { addToQuantityCart } from '../../redux/cart.slice';
 import styles from '../../styles/productDetails.module.css';
+import { supabase } from '../../public/utils/supabase';
+import { addToQuantityCart } from '../../redux/singleBook.slice';
 
-import {
-  increment,
-  decrement,
-  removeFromCart,
-} from '../../redux/singleBook.slice';
+import { increment, decrement, removeFromCart } from '../../redux/cart.slice';
 
 const SingleProductPage = ({ singleBook }) => {
-  // console.log('singleBook', singleBook);
+  // console.log('singleBook', singleBook[0]);
+  const bookDetail = singleBook[0];
   const dispatch = useDispatch();
   const book = useSelector(state => {
     // console.log('state', state);
@@ -31,14 +30,14 @@ const SingleProductPage = ({ singleBook }) => {
             <img
               alt="ecommerce"
               className="lg:w-1/3 w-full object-cover object-center rounded border border-gray-200"
-              src={singleBook.image}
+              src={bookDetail.image}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {singleBook.title}
+                {bookDetail.title}
               </h1>
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                by: {singleBook.author}
+                by: {bookDetail.author}
               </h2>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -150,12 +149,12 @@ const SingleProductPage = ({ singleBook }) => {
               <div className="flex  mt-8 items-center pb-5 border-b-2 border-gray-200 mb-5 ml-5">
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-gray-900">
-                    ${singleBook.price}.00
+                    ${bookDetail.price}.00
                   </span>
                 </div>
                 <div className="flex ml-32 items-center">
                   <span className="mr-3">Quantity:</span>
-                  <span>{book.singleBook.quantity}</span>
+                  {/* <span>{book.singleBook.quantity}</span> */}
                   <div className="relative m-3">
                     <div>
                       <button
@@ -170,7 +169,7 @@ const SingleProductPage = ({ singleBook }) => {
                         type="button"
                         className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                         onClick={() => {
-                          console.log('single book--', singleBook);
+                          // console.log('single book--', singleBook);
                           dispatch(decrement(singleBook));
                         }}
                       >
@@ -184,7 +183,8 @@ const SingleProductPage = ({ singleBook }) => {
                 <button
                   className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
                   onClick={() => {
-                    dispatch(addToQuantityCart(singleBook));
+                    console.log('bookDetail--', bookDetail);
+                    dispatch(addToQuantityCart(bookDetail));
                     notify('success', 'Added To Cart!');
                   }}
                 >
@@ -212,12 +212,17 @@ const SingleProductPage = ({ singleBook }) => {
 };
 
 export const getServerSideProps = async context => {
-  const res = await axios.get(
-    `http://localhost:8000/api/allProducts/${context.params.id}`
-  );
+  // const res = await axios.get(
+  //   `http://localhost:8000/api/allProducts/${context.params.id}`
+  // );
+  let { data: Product, error } = await supabase
+    .from('Product')
+    .select('*')
+    .eq('id', context.params.id);
+  // console.log('THIS IS PRODUCT--', Product);
   return {
     props: {
-      singleBook: res.data,
+      singleBook: Product,
     },
   };
 };

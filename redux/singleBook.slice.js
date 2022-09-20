@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { store } from './store';
 
-// console.log('STOREEE', store.getState());
 // export const fetchASingleBook = createAsyncThunk(
 //   'single-book/fetchSingleBook',
 //   async (id, thunkAPI) => {
@@ -23,6 +21,23 @@ export const bookSlice = createSlice({
   name: 'single-book',
   initialState: {},
   reducers: {
+    addToQuantityCart: (state, action) => {
+      {
+        console.log('STATE-', state.id);
+        // console.log('ACTION-', action);
+        const itemExists = state.find(item => {
+          item.id === action.payload.id;
+        });
+
+        // console.log('itemEXISTS-->', itemExists);
+        if (itemExists) {
+          // console.log('ITEM-', item.quantity);
+          itemExists.quantity += action.payload.quantity;
+        } else {
+          state.push({ ...action.payload, quantity: action.payload.quantity });
+        }
+      }
+    },
     increment: (state, action) => {
       {
         if (action.payload.singleBook.quantity === undefined) {

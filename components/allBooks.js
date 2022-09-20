@@ -13,7 +13,7 @@ const BookList = ({ bookList }) => {
     <div className={styles.container}>
       <h1 className={styles.title}>All Results</h1>
       <div className={styles.cards}>
-        {bookList.slice(0, postNum).map((book, index) => (
+        {bookList.map((book, index) => (
           <SingleProduct key={index} product={book} />
         ))}
       </div>
