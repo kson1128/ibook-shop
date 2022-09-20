@@ -4,7 +4,8 @@
     "dev:start": "nodemon ./server/server",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production next start",
+    "prod_start": "NODE_ENV=production node ./server/server"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.4",
