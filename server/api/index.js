@@ -15,7 +15,7 @@ router.get('/allProducts/', async (req, res) => {
 // GET    /products/:id
 router.get('/allProducts/:id', async (req, res) => {
   const { id } = req.params;
-  console.log('THE ID IS--', req);
+
   const book = await prisma.product.findUnique({
     where: { id: Number(id) },
   });

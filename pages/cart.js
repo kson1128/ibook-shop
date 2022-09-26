@@ -9,7 +9,6 @@ import {
 
 const CartPage = () => {
   const cart = useSelector(state => {
-    // console.log('WAHTS STATE-', state);
     return state.cart;
   });
 
@@ -39,7 +38,7 @@ const CartPage = () => {
           {cart.map((item, index) => (
             <div key={index} className={styles.body}>
               <div className={styles.image}>
-                {/* <Image src={item.image} height="90" width="65" /> */}
+                <Image src={item.image} height="90" width="65" />
               </div>
               <p>{item.title}</p>
               <p>$ {item.price}</p>

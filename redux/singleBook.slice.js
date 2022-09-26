@@ -1,14 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { store } from './store';
+import { createSlice, current, createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import { addToCart } from './cart.slice';
+// import store from './store';
+import { supabase } from '.././public/utils/supabase';
 
 // export const fetchASingleBook = createAsyncThunk(
 //   'single-book/fetchSingleBook',
-//   async (id, thunkAPI) => {
+//   async (id, { getState }) => {
+//     console.log('getstate-', getState);
 //     try {
-//       const { data } = await axios.get(
-//         `http://localhost:3000/api/allProducts/`
-//       );
-//       dispatch(fetchSingleBook(data[0]));
+//       let { data: Product, error } = await supabase
+//         .from('Product')
+//         .select('*')
+//         .eq('id', id);
+//       return {
+//         props: {
+//           singleBook: data,
+//         },
+//       };
+//       // const { data } = await axios.get(
+//       //   `http://localhost:3000/api/allProducts/`
+//       // );
+//       // dispatch(fetchSingleBook(data[0]));
 //     } catch (err) {
 //       // custom error
 //       console.log(err);
@@ -21,39 +34,20 @@ export const bookSlice = createSlice({
   name: 'single-book',
   initialState: {},
   reducers: {
-    addToQuantityCart: (state, action) => {
-      {
-        console.log('STATE-', state.id);
-        // console.log('ACTION-', action);
-        const itemExists = state.find(item => {
-          item.id === action.payload.id;
-        });
-
-        // console.log('itemEXISTS-->', itemExists);
-        if (itemExists) {
-          // console.log('ITEM-', item.quantity);
-          itemExists.quantity += action.payload.quantity;
-        } else {
-          state.push({ ...action.payload, quantity: action.payload.quantity });
-        }
-      }
-    },
-    increment: (state, action) => {
-      {
-        if (action.payload.singleBook.quantity === undefined) {
-          action.payload.singleBook.quantity = 1;
-        } else {
-          action.payload.singleBook.quantity++;
-          return { ...action.payload.singleBook };
-        }
-      }
+    setBook: (state, action) => {
+      return { ...state, ...action.payload };
     },
 
-    decrement: (state, action) => {
+    incrementQuantity: (state, action) => {
+      if (state.quantity === undefined) {
+        return { ...state, quantity: 2 };
+      }
+      state.quantity++;
+    },
+    decrementQuantity: (state, action) => {
       {
-        if (action.payload.quantity > 1) {
-          action.payload.quantity--;
-          return { ...action.payload };
+        if (state.quantity > 1) {
+          state.quantity--;
         }
       }
     },
@@ -62,9 +56,22 @@ export const bookSlice = createSlice({
       state.splice(index, 1);
     },
   },
+  // extraReducers: builder => {
+  //   // Add reducers for additional action types here, and handle loading state as needed
+  //   builder.addCase(fetchASingleBook.fulfilled, (state, action) => {
+  //     // Add user to the state array
+  //     console.log('STATE: ', state);
+  //     state.cart.push(action.payload);
+  //   });
+  // },
 });
 
 export const bookReducer = bookSlice.reducer;
 
-export const { addToQuantityCart, increment, decrement, removeFromCart } =
-  bookSlice.actions;
+export const {
+  setBook,
+
+  incrementQuantity,
+  decrementQuantity,
+  removeFromCart,
+} = bookSlice.actions;

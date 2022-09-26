@@ -1,23 +1,29 @@
 import * as React from 'react';
 import toast from '../../components/toastNotification';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-// import { addToQuantityCart } from '../../redux/cart.slice';
 import styles from '../../styles/productDetails.module.css';
 import { supabase } from '../../public/utils/supabase';
-import { addToQuantityCart } from '../../redux/singleBook.slice';
+import {
+  addToCart,
+  addToQuantityCart,
+  removeFromCart,
+} from '../../redux/cart.slice';
+import { setBook } from '../../redux/singleBook.slice';
 
-import { increment, decrement, removeFromCart } from '../../redux/cart.slice';
+import {
+  incrementQuantity,
+  decrementQuantity,
+} from '../../redux/singleBook.slice';
 
 const SingleProductPage = ({ singleBook }) => {
-  // console.log('singleBook', singleBook[0]);
   const bookDetail = singleBook[0];
+
   const dispatch = useDispatch();
+
   const book = useSelector(state => {
-    // console.log('state', state);
-    return state.singleBook === undefined ? null : state;
+    return state.singleBook;
   });
-  // console.log('What is book', book);
+
   const notify = React.useCallback((type, message) => {
     toast({ type, message });
   }, []);
@@ -149,18 +155,20 @@ const SingleProductPage = ({ singleBook }) => {
               <div className="flex  mt-8 items-center pb-5 border-b-2 border-gray-200 mb-5 ml-5">
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-gray-900">
-                    ${bookDetail.price}.00
+                    {/* ${book.singleBook.price}.00 */}
                   </span>
                 </div>
                 <div className="flex ml-32 items-center">
                   <span className="mr-3">Quantity:</span>
-                  {/* <span>{book.singleBook.quantity}</span> */}
+                  <span>{book.quantity || 1}</span>
                   <div className="relative m-3">
                     <div>
                       <button
                         type="button"
                         className="inline-block px-6 py-2.5 bg-stone-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-stone-400 hover:shadow-lg focus:bg-stone-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                        onClick={() => dispatch(increment({ singleBook }))}
+                        onClick={() => {
+                          dispatch(incrementQuantity(book));
+                        }}
                       >
                         +
                       </button>
@@ -169,8 +177,7 @@ const SingleProductPage = ({ singleBook }) => {
                         type="button"
                         className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                         onClick={() => {
-                          // console.log('single book--', singleBook);
-                          dispatch(decrement(singleBook));
+                          dispatch(decrementQuantity(book));
                         }}
                       >
                         -
@@ -183,8 +190,9 @@ const SingleProductPage = ({ singleBook }) => {
                 <button
                   className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
                   onClick={() => {
-                    console.log('bookDetail--', bookDetail);
-                    dispatch(addToQuantityCart(bookDetail));
+                    // dispatch(incrementQuantity(bookDetail))
+                    dispatch(setBook(bookDetail));
+                    dispatch(addToQuantityCart(book));
                     notify('success', 'Added To Cart!');
                   }}
                 >
@@ -212,14 +220,10 @@ const SingleProductPage = ({ singleBook }) => {
 };
 
 export const getServerSideProps = async context => {
-  // const res = await axios.get(
-  //   `http://localhost:8000/api/allProducts/${context.params.id}`
-  // );
   let { data: Product, error } = await supabase
     .from('Product')
     .select('*')
     .eq('id', context.params.id);
-  // console.log('THIS IS PRODUCT--', Product);
   return {
     props: {
       singleBook: Product,

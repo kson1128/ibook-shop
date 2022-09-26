@@ -2,20 +2,37 @@ import Link from 'next/link';
 import * as React from 'react';
 import toast from '../components/toastNotification';
 import Image from 'next/image';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/cart.slice';
+import { setBook } from '../redux/singleBook.slice';
+
 import styles from '../styles/singleProduct.module.css';
 
 const SingleProduct = ({ product }) => {
   const dispatch = useDispatch();
+
   const notify = React.useCallback((type, message) => {
     toast({ type, message });
   }, []);
 
   return (
     <div className={styles}>
-      <Link href={`/allProducts/${product.id}`}>
-        <a>
+      <Link
+        href={{
+          pathname: `/allProducts/${product.id}`,
+          // query: {
+          // productId: product.id, // pass the id
+          // },
+        }}
+        as={`/allProducts/${product.id}`}
+
+        // href={`/allProducts/${product.id}`}
+      >
+        <a
+          onClick={() => {
+            dispatch(setBook(product));
+          }}
+        >
           <Image src={product.image} height={300} width={220} />
         </a>
       </Link>

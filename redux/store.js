@@ -1,21 +1,28 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  applyMiddleware,
+} from '@reduxjs/toolkit';
 import { cartReducer } from './cart.slice';
 import { bookReducer } from './singleBook.slice';
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { HYDRATE, createWrapper } from 'next-redux-wrapper';
+import thunk from 'redux-thunk';
 
-const reducer = {
+// const bindMiddleware = middleware => {
+//   if (process.env.NODE_ENV !== 'production') {
+//     const { composeWithDevTools } = require('redux-devtools-extension');
+//     return composeWithDevTools(applyMiddleware(...middleware));
+//   }
+//   return applyMiddleware(...middleware);
+// };
+
+const reducer = combineReducers({
   cart: cartReducer,
   singleBook: bookReducer,
-};
+});
 
-export const store = configureStore({
+const store = configureStore({
   reducer,
 });
-// export const makeStore = () =>
-//   configureStore({
-//     reducer,
-//   });
-console.log('store:', store.getState());
 
-export const wrapper = createWrapper(store);
-export default wrapper;
+export default store;

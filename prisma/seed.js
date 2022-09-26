@@ -8,14 +8,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log(`Start seeding ...`);
   for (const product of productData) {
-    // console.log('product-', product);
     const eachProduct = await prisma.product.create({
       data: product,
     });
   }
 
   for (const user of users) {
-    // console.log('user-', user);
     const eachUser = await prisma.user.create({
       data: user,
     });
