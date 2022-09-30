@@ -5,24 +5,36 @@ import {
 } from '@reduxjs/toolkit';
 import { cartReducer } from './cart.slice';
 import { bookReducer } from './singleBook.slice';
-import { HYDRATE, createWrapper } from 'next-redux-wrapper';
-import thunk from 'redux-thunk';
 
-// const bindMiddleware = middleware => {
-//   if (process.env.NODE_ENV !== 'production') {
-//     const { composeWithDevTools } = require('redux-devtools-extension');
-//     return composeWithDevTools(applyMiddleware(...middleware));
-//   }
-//   return applyMiddleware(...middleware);
-// };
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+  key: 'counter',
+  storage,
+};
 
 const reducer = combineReducers({
   cart: cartReducer,
   singleBook: bookReducer,
 });
 
-const store = configureStore({
-  reducer,
-});
+const persistedReducer = persistReducer(persistConfig, reducer);
 
-export default store;
+export default configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});

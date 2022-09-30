@@ -1,4 +1,3 @@
-import axios from 'axios';
 import SingleProduct from '../components/singleProduct';
 import styles from '../styles/allProducts.module.css';
 import BookList from '../components/allBooks';
