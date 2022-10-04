@@ -23,10 +23,17 @@ const SingleProductPage = ({ singleBook }) => {
   const book = useSelector(state => {
     return state.singleBook;
   });
+  console.log('Bbook -', book);
+  const [item, setItem] = React.useState(book);
 
   const notify = React.useCallback((type, message) => {
     toast({ type, message });
   }, []);
+
+  const changeQuantity = value => {
+    // Don't allow the quantity less than 0, if the quantity is greater than value entered by user then the user entered quantity is used, else 0
+    setItem({ ...item, quantity: Math.max(0, value) });
+  };
 
   return (
     <div className={styles}>
@@ -36,14 +43,14 @@ const SingleProductPage = ({ singleBook }) => {
             <img
               alt="ecommerce"
               className="lg:w-1/3 w-full object-cover object-center rounded border border-gray-200"
-              src={bookDetail.image}
+              src={item.image}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {bookDetail.title}
+                {item.title}
               </h1>
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                by: {bookDetail.author}
+                by: {item.author}
               </h2>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -155,12 +162,12 @@ const SingleProductPage = ({ singleBook }) => {
               <div className="flex  mt-8 items-center pb-5 border-b-2 border-gray-200 mb-5 ml-5">
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-gray-900">
-                    {/* ${book.singleBook.price}.00 */}
+                    ${item.price}.00
                   </span>
                 </div>
                 <div className="flex ml-32 items-center">
                   <span className="mr-3">Quantity:</span>
-                  <span>{book.quantity || 1}</span>
+                  <span>{item.quantity}</span>
                   <div className="relative m-3">
                     <div>
                       <button

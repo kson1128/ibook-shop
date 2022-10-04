@@ -5,11 +5,17 @@ import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/cart.slice';
 import { setBook } from '../redux/singleBook.slice';
-
+import { useSession, signIn, signOut } from 'next-auth/react';
 import styles from '../styles/singleProduct.module.css';
 
 const SingleProduct = ({ product }) => {
   const dispatch = useDispatch();
+
+  const { session, loadingSession } = useSession();
+
+  if (loadingSession) {
+    return <p>Loading...</p>;
+  }
 
   const notify = React.useCallback((type, message) => {
     toast({ type, message });
@@ -25,8 +31,6 @@ const SingleProduct = ({ product }) => {
           // },
         }}
         as={`/allProducts/${product.id}`}
-
-        // href={`/allProducts/${product.id}`}
       >
         <a
           onClick={() => {

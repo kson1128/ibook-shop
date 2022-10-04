@@ -16,14 +16,15 @@ const CartPage = () => {
   });
 
   const redirectToCheckout = async () => {
-    const {
-      data: { id },
-    } = await axios.post('/api/checkout_sessions', {
-      items: Object.entries(cartPg).map(([_, { id, quantity }]) => ({
-        price: id,
-        quantity,
-      })),
-    });
+    // console.log('cartPg--', cartPg);
+    // const {
+    //   data: { id },
+    // } = await axios.post('/api/checkout_sessions', {
+    //   items: Object.entries(cartPg).map(([_, { id, quantity }]) => ({
+    //     price: id,
+    //     quantity,
+    //   })),
+    // });
 
     const stripe = await getStripe();
     await stripe.redirectToCheckout({ sessionId: id });

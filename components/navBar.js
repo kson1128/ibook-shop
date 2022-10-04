@@ -1,9 +1,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-  const [itemCount, setItemCount] = useState(1);
+  const qty = useSelector(state => {
+    console.log('state: ', state);
+    return state.cart;
+  });
+
+  const { data: session, loading } = useSession();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
       <nav className="flex items-center flex-wrap bg-Neutral-100 p-3 ">
@@ -44,27 +55,25 @@ const Navbar = () => {
             </Link>
             <Link href="/cart">
               <a className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white">
-                <button
+                {/* <button
                   className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
                   aria-label="Cart"
                 >
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                  <span className="absolute inset-0 object-right-top -mr-6">
-                    <div className="inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
-                      6
-                    </div>
-                  </span>
-                </button>
+                <svg
+               className="h-6 w-6" fill="none" strokeLinecap="round"
+                  strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                <span className="absolute inset-0 object-right-top -mr-6"> */}
+                {qty.length === 0 ? null : (
+                  <div className=" absolute top-1 right-40 inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
+                    {qty.length}
+                  </div>
+                )}
+                {/* </span>
+                </button> */}
                 View Cart
               </a>
             </Link>
@@ -74,7 +83,15 @@ const Navbar = () => {
               </a>
             </Link>
             <Link href="/">
-              <a className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white">
+              <a
+                className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white"
+                onClick={() => signIn()}
+              >
+                {/* {!session && (
+        <>
+          <button onClick={() => signIn()}>Sign In</button>
+        </>
+      )} */}
                 Login
               </a>
             </Link>
