@@ -2,8 +2,9 @@ import SingleProduct from './singleProduct';
 import styles from '../styles/allProducts.module.css';
 import { useState } from 'react';
 
-const BookList = ({ bookList }) => {
+const BookList = bookList => {
   const [postNum, setPostNum] = useState(6);
+  console.log('allBOOKS', bookList);
 
   //Implementation for a load more button using Ghost CMS
   function handleClick() {
@@ -13,7 +14,7 @@ const BookList = ({ bookList }) => {
     <div className={styles.container}>
       <h1 className={styles.title}>All Results</h1>
       <div className={styles.cards}>
-        {bookList.map((book, index) => (
+        {bookList.bookList.slice(0, postNum).map((book, index) => (
           <SingleProduct key={index} product={book} />
         ))}
       </div>
