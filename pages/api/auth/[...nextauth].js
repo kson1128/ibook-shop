@@ -21,7 +21,7 @@ export default NextAuth({
   // jwt: {
   //   encryption: true,
   // },
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_URL,
   callbacks: {
     async jwt(token, account) {
       if (account?.accessToken) {
