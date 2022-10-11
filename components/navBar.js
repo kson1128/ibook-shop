@@ -77,15 +77,15 @@ const Navbar = () => {
                 View Cart
               </a>
             </Link>
-            <Link href="/">
+            <Link href="/signup">
               <a className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white">
                 Sign Up
               </a>
             </Link>
-            <Link href="/">
+            <Link href="/signin">
               <a
                 className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white"
-                onClick={() => signIn()}
+                // onClick={() => signIn()}
               >
                 {/* {!session && (
         <>
