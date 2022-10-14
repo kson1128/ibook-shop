@@ -33,16 +33,6 @@ const SignUp = () => {
         </h1>
 
         <form className="mt-2 flex flex-col p-6" onSubmit={handleSubmit}>
-          {/* <label htmlFor="name" className="text-gray-200">
-            Name
-          </label>
-          <input
-            className="py-2 px-4 rounded-md focus:outline-none focus:ring-2"
-            type="name"
-            id="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          /> */}
           <label htmlFor="email" className="text-gray-200">
             Email
           </label>
