@@ -25,10 +25,7 @@ const CartPage = () => {
     //     quantity,
     //   })),
     // });
-
-  //   const stripe = await getStripe();
-  //   await stripe.redirectToCheckout({ sessionId: id });
-  // };
+  };
 
   const dispatch = useDispatch();
   const [redirecting, setRedirecting] = React.useState(false);
