@@ -1,60 +1,47 @@
-// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-
-
-
-
 model Product {
-  id         Int      @id @unique @default(autoincrement())
-  title     String
-  author    String
-  price     Int
-  image     String @default("https:/i.imgur.com/MA7NDtv.png/")
-  //content   String?
-  //published Boolean @default(false)
-  //orders    Order? @relation("OrderHasProduct",fields: [Product_orderId], references:[id])
-  //Product_orderId  Int
+  title  String
+  author String
+  price  Int
+  id     Int    @id @unique @default(autoincrement())
+  image  String @default("https:/i.imgur.com/MA7NDtv.png/")
 }
 
 model Order {
-  id        Int      @id @unique @default(autoincrement())
   totalPrice   Int
   status       Status
-  defaultValue String  @default("CART")
-  user         User @relation(fields:[userId],references: [id])
+  defaultValue String @default("CART")
   userId       Int
-
+  id           Int    @id @unique @default(autoincrement())
+  user         User   @relation(fields: [userId], references: [id])
 }
 
 model User {
+  name      String?
+  email     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
   id        Int      @id @unique @default(autoincrement())
-  name          String?
-  email         String
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  order         Order[]
+  order     Order[]
 }
 
 model OrderProducts {
-  id        Int      @id @unique @default(autoincrement())
+  id       Int @id @unique @default(autoincrement())
   quantity Int
   subtotal Int
 }
 
-
- enum Status {
+enum Status {
   CART
   PURCHASED
   SHIPPED
   REFUNDED
 }
-

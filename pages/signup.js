@@ -13,11 +13,16 @@ const SignUp = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          first_name: 'John',
+        },
+      },
     });
-
+    console.log('data', data);
     if (error) {
       alert(JSON.stringify(error));
     } else {
@@ -33,6 +38,17 @@ const SignUp = () => {
         </h1>
 
         <form className="mt-2 flex flex-col p-6" onSubmit={handleSubmit}>
+          {/* <label htmlFor="first_name" className="text-gray-200">
+            first_name
+          </label>
+          <input
+            className="py-2 px-4 rounded-md focus:outline-none focus:ring-2"
+            type="first_name"
+            id="first_name"
+            value={first_name}
+            onChange={e => setName(e.target.value)}
+          /> */}
+
           <label htmlFor="email" className="text-gray-200">
             Email
           </label>

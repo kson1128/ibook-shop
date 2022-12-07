@@ -8,7 +8,10 @@ const app = express();
 app.use(express.json());
 // GET    api/products
 router.get('/allProducts/', async (req, res) => {
+  // const products = await prisma.product.findMany();
+  // console.log('prods-', products);
   const products = await prisma.product.findMany();
+  console.log(products);
   res.json(products);
 });
 
@@ -23,18 +26,3 @@ router.get('/allProducts/:id', async (req, res) => {
 });
 
 module.exports = router;
-
-// const router = require('express').Router();
-
-// // router.use('/users', require('./users'));
-// // router.use('/products', require('./products'));
-// // router.use('/cart', require('./cart'));
-// // router.use('/order', require('./orders'));
-
-// router.use((req, res, next) => {
-//   const error = new Error('API route not found!');
-//   error.status = 404;
-//   next(error);
-// });
-
-// module.exports = router;

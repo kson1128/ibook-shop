@@ -1,14 +1,19 @@
 import SingleProduct from '../components/singleProduct';
 import styles from '../styles/allProducts.module.css';
 import BookList from '../components/allBooks';
-import { supabase } from '../public/utils/supabase';
+// import { supabase } from '../public/utils/supabase';
 import { useState } from 'react';
+import axios from 'axios';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const getServerSideProps = async context => {
   // const res = await axios.get(`http://localhost:8000/api/allProducts`);
 
-  let { data: Product, error } = await supabase.from('Product').select('*');
-
+  // let { data: Product, error } = await supabase.from('Product').select('*');
+  const Product = await prisma.product.findMany();
+  console.log(Product);
   return {
     props: {
       bookList: Product,

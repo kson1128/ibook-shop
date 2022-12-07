@@ -8,15 +8,25 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/navBar';
 import { SessionProvider } from 'next-auth/react';
+import useSupabase from '.././supabase/utils/supabase';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps }) {
+  const { currentUser, session, supabase } = useSupabase();
+  // console.log('session:', session);
+  // console.log('currentUser:', currentUser);
+
   let persistor = persistStore(store);
   return (
-    <Provider store={store}>
-      <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Navbar />
-          <Component {...pageProps} />
+          <Component
+            currentUser={currentUser}
+            session={session}
+            supabase={supabase}
+            {...pageProps}
+          />
           <ToastContainer
             position="top-right"
             autoClose={8000}
@@ -28,8 +38,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             pauseOnHover
           />
         </PersistGate>
-      </SessionProvider>
-    </Provider>
+      </Provider>
+    </SessionProvider>
   );
 }
 

@@ -38,6 +38,18 @@ const SignIn = () => {
     }
   };
 
+  // const mySession = async (req, res) => {
+  //   const session = await unstable_getServerSession(req, res, authOptions);
+  //   if (session) {
+  //     // Signed in
+  //     console.log('Session', JSON.stringify(session, null, 2));
+  //   } else {
+  //     // Not Signed in
+  //     res.status(401);
+  //   }
+  //   res.end();
+  // };
+
   return (
     <div className="h-screen flex items-center justify-center bg-gray-800">
       <div className="max-w-lg w-full">

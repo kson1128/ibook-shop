@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '../supabase/utils/supabase';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
-const Dashboard = () => {
+const Dashboard = ({ session }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
+
+  console.log('THIS IS SESSION IN DASHBOARD', session);
 
   const handleLogOut = async e => {
     e.preventDefault();
@@ -34,16 +37,13 @@ const Dashboard = () => {
 
   console.log('WHATS USER-', user);
 
-  if (!user) {
-    // Currently loading asynchronously User Supabase Information
-    return null;
-  }
-
   return (
     <div className="h-screen flex items-center justify-center bg-gray-800">
       <div className="max-w-lg w-full text-center">
         <h1 className="text-2xl font-semibold text-white">
-          Welcome, your email is {user.email}
+          {user
+            ? `Welcome, your email is ${user.email}`
+            : 'something went wrong :('}
         </h1>
 
         <button
