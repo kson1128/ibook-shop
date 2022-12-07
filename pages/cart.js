@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '../styles/CartPage.module.css';
 import axios from 'axios';
-import getStripe from '../components/get-stripe';
+// import getStripe from '../components/get-stripe';
 import {
   incrementQuantity,
   decrementQuantity,
@@ -26,9 +26,9 @@ const CartPage = () => {
     //   })),
     // });
 
-    const stripe = await getStripe();
-    await stripe.redirectToCheckout({ sessionId: id });
-  };
+  //   const stripe = await getStripe();
+  //   await stripe.redirectToCheckout({ sessionId: id });
+  // };
 
   const dispatch = useDispatch();
   const [redirecting, setRedirecting] = React.useState(false);
