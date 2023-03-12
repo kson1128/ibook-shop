@@ -13,7 +13,7 @@ export const getServerSideProps = async context => {
 
   // let { data: Product, error } = await supabase.from('Product').select('*');
   const Product = await prisma.product.findMany();
-  console.log(Product);
+  // console.log(Product);
   return {
     props: {
       bookList: Product,

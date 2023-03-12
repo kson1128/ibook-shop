@@ -11,7 +11,7 @@ router.get('/allProducts/', async (req, res) => {
   // const products = await prisma.product.findMany();
   // console.log('prods-', products);
   const products = await prisma.product.findMany();
-  console.log(products);
+  // console.log(products);
   res.json(products);
 });
 

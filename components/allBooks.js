@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const BookList = bookList => {
   const [postNum, setPostNum] = useState(6);
-  console.log('allBOOKS', bookList);
+  // console.log('allBOOKS', bookList);
 
   //Implementation for a load more button using Ghost CMS
   function handleClick() {
