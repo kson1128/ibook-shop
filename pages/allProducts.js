@@ -1,7 +1,6 @@
 import SingleProduct from '../components/singleProduct';
 import styles from '../styles/allProducts.module.css';
 import BookList from '../components/allBooks';
-// import { supabase } from '../public/utils/supabase';
 import { useState } from 'react';
 import axios from 'axios';
 import { PrismaClient } from '@prisma/client';

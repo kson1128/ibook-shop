@@ -33,8 +33,8 @@ const cartSlice = createSlice({
       state.splice(index + 1, 1);
     },
     incrementQuantity: (state, action) => {
-      console.log('state.id', state);
-      console.log('action', action);
+      // console.log('state.id', state);
+      // console.log('action', action);
       const item = state.find(item => item.id === action.payload);
       item.quantity++;
     },

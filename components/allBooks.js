@@ -8,7 +8,7 @@ const BookList = bookList => {
 
   //Implementation for a load more button using Ghost CMS
   function handleClick() {
-    setPostNum(prevPostNum => prevPostNum + 3);
+    setPostNum(prevPostNum => prevPostNum + 4);
   }
   return (
     <div className={styles.container}>

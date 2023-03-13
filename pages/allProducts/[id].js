@@ -2,7 +2,7 @@ import * as React from 'react';
 import toast from '../../components/toastNotification';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/productDetails.module.css';
-import { supabase } from '../../public/utils/supabase';
+// import { supabase } from '../../public/utils/supabase';
 import {
   addToCart,
   addToQuantityCart,
@@ -16,14 +16,13 @@ import {
 } from '../../redux/singleBook.slice';
 
 const SingleProductPage = ({ singleBook }) => {
-  const bookDetail = singleBook[0];
+  const bookDetail = singleBook;
 
   const dispatch = useDispatch();
 
   const book = useSelector(state => {
     return state.singleBook;
   });
-  console.log('Bbook -', book);
   const [item, setItem] = React.useState(book);
 
   const notify = React.useCallback((type, message) => {
@@ -224,18 +223,6 @@ const SingleProductPage = ({ singleBook }) => {
       </section>
     </div>
   );
-};
-
-export const getServerSideProps = async context => {
-  let { data: Product, error } = await supabase
-    .from('Product')
-    .select('*')
-    .eq('id', context.params.id);
-  return {
-    props: {
-      singleBook: Product,
-    },
-  };
 };
 
 export default SingleProductPage;

@@ -35,7 +35,7 @@ const Dashboard = ({ session }) => {
     getProfile();
   }, []);
 
-  console.log('WHATS USER-', user);
+  // console.log('WHATS USER-', user);
 
   return (
     <div className="h-screen flex items-center justify-center bg-gray-800">

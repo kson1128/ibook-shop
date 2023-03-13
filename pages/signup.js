@@ -22,7 +22,7 @@ const SignUp = () => {
         },
       },
     });
-    console.log('data', data);
+    // console.log('data', data);
     if (error) {
       alert(JSON.stringify(error));
     } else {
