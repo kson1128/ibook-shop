@@ -23,6 +23,7 @@ const SingleProductPage = ({ singleBook }) => {
   const book = useSelector(state => {
     return state.singleBook;
   });
+
   const [item, setItem] = React.useState(book);
 
   const notify = React.useCallback((type, message) => {
@@ -166,14 +167,14 @@ const SingleProductPage = ({ singleBook }) => {
                 </div>
                 <div className="flex ml-32 items-center">
                   <span className="mr-3">Quantity:</span>
-                  <span>{item.quantity}</span>
+                  <span>{book.quantity}</span>
                   <div className="relative m-3">
                     <div>
                       <button
                         type="button"
                         className="inline-block px-6 py-2.5 bg-stone-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-stone-400 hover:shadow-lg focus:bg-stone-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                         onClick={() => {
-                          dispatch(incrementQuantity(book));
+                          dispatch(incrementQuantity());
                         }}
                       >
                         +
@@ -183,7 +184,7 @@ const SingleProductPage = ({ singleBook }) => {
                         type="button"
                         className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                         onClick={() => {
-                          dispatch(decrementQuantity(book));
+                          dispatch(decrementQuantity());
                         }}
                       >
                         -
