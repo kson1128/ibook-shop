@@ -76,11 +76,11 @@ const Navbar = () => {
               {' '}
               <Link href="/cart">
                 <a class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white">
-                  {qty.length === 0 ? null : (
+                  {/* {qty.length === 0 ? null : (
                     <div className=" absolute top-1 right-40 inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
-                      {qty.length}
+                      {' '}
                     </div>
-                  )}
+                  )} */}
                   View Cart
                 </a>
               </Link>
@@ -119,7 +119,11 @@ const Navbar = () => {
               <a className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-yellow-500 font-bold items-center justify-center hover:bg-green-700 hover:text-white">
                 {qty.length === 0 ? null : (
                   <div className=" absolute top-1 right-40 inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
-                    {qty.length}
+                    {qty.reduce(
+                      (accumulator, currentValue) =>
+                        accumulator + currentValue.quantity,
+                      0
+                    )}
                   </div>
                 )}
                 View Cart
